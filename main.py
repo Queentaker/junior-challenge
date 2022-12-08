@@ -1,5 +1,4 @@
-import modules.processor as processor
-
+from modules.processor import Processor
 
 if __name__ == "__main__":
-    processor.run(file_name="students.csv")
+    Processor.run(file_name="students.csv")

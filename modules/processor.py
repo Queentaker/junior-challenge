@@ -1,16 +1,37 @@
 # import pandas as pd
 # import openpyxl as xl
+import os.path
+from openpyxl import Workbook
 
 # import modules.identifier as identifier
 
 #create a class instead
+from identifier import Identifier
+from modules.student import Student
 
-class Generate_xlsx:
-    def run(file_name):
+
+class Processor:
+
+    def __extract_data(self,csv:str)->list:
+        pass
+    def __data_conversion(self):
+        pass
+
+    def __create_xlsx(self,students:list[Student]):
+        pass
+    def __reset(self):
+        pass
+
+    def run(file_name:str):
         print(">> Processing...")
+        # TODO: check if exists file
         # ---- YOUR CODE STARTS HERE ----
 
         # TODO: Step 1
+        #verfiy if file exists
+        with open(file_name,"r") as csv:
+            array=csv.readlines()
+
         # ----- Read students.csv for further processing
 
         # TODO: Step 2
