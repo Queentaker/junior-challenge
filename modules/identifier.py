@@ -2,7 +2,8 @@ import random
 import string
 
 random.seed("ibf")
-
-
-def generate_identifier(length=12):
-    return "".join(random.choice(string.ascii_letters) for i in range(length))
+class identifier:
+    def __init__(self):
+        self.already_tooken_identifiers=[]
+    def generate_identifier(length:int =12):
+        return "".join(random.choice(string.ascii_letters) for i in range(length))
