@@ -1,2 +1,2 @@
-identifierSpot="R2"
-templateLocation="template.xlsx"
+identifier_cell= "R2"
+template_path= "template.xlsx"

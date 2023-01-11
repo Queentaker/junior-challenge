@@ -1,41 +1,44 @@
+import shutil
+
 import pandas as pd
 import openpyxl as xl
 import os.path
 from openpyxl import Workbook
 from datetime import datetime
-
-#create a class instead
+import modules.constants as const
 from modules.identifier import generate_identifier
-from modules.student import Student
+
 
 
 class Processor:
 
 
 
-    def __extract_data(self,csv:str):
+    def __extract_data(self,csv:str, target_folder:str):
         df=pd.read_csv(csv)
         for index,row in df.iterrows():
-            student=Student(row["matriculation_number"],row["firstname"],row["lastname"], generate_identifier(8))
+            identifier=generate_identifier(8)
+            file_name= f"__{identifier}__" + ".xlsx"
 
+            file_path=os.path.join(target_folder, file_name)
+            shutil.copy(const.template_path, file_path)
 
+            wb = xl.load_workbook(file_path)
+            ws =wb.worksheets[0]
 
-    def __data_conversion(self):
-        pass
+            ws[const.identifier_cell].value=identifier
+
+            wb.save(file_path)
+
 
     def __create_folder_name(self):
         folder_name = "Folder_Excelfiles_" + datetime.now().now().strftime("%Y-%m-%d_%H_%M_%S")
         return folder_name
 
     def __create_folder(self,folder_name):
-        assert os.path.exists(folder_name)==False
+        assert not os.path.exists(folder_name)
         os.makedirs(folder_name, exist_ok=True)
 
-
-
-    def __create_xlsx(self,students:list[Student]):
-        for student in students:
-            pass
 
 
     def run(self,file_name:str):
@@ -46,10 +49,7 @@ class Processor:
 
             folder_name=self.__create_folder_name()
             self.__create_folder(folder_name)
-            self.__extract_data(file_name)
-            # TODO: Step 1
-            #verfiy if file exists
-            df=pd.read_csv(file_name)
+            self.__extract_data(file_name, folder_name)
 
 
 
@@ -57,10 +57,6 @@ class Processor:
             # ----- Read students.csv for further processing
 
             # TODO: Step 2
-            #create a class student
-            #student has a name
-            # ----- Generate a random 8-character string ("identifier") for each student
-            # ----- Hint: you can use the identifier.py module ("import modules.identifier as identifier")
 
             # TODO: Step 3
             # ----- For each student, generate a copy of template.xlsx containing the student information in the appropriate fields
