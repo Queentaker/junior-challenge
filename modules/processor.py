@@ -1,10 +1,9 @@
 import shutil
-
 import pandas as pd
 import openpyxl as xl
 import os.path
-from openpyxl import Workbook
 from datetime import datetime
+
 import modules.constants as const
 from modules.identifier import generate_identifier
 
@@ -18,7 +17,7 @@ class Processor:
         df=pd.read_csv(csv)
         for index,row in df.iterrows():
             identifier=generate_identifier(8)
-            file_name= f"__{identifier}__" + ".xlsx"
+            file_name= f"_{identifier}_" + ".xlsx"
 
             file_path=os.path.join(target_folder, file_name)
             shutil.copy(const.template_path, file_path)
@@ -26,7 +25,11 @@ class Processor:
             wb = xl.load_workbook(file_path)
             ws =wb.worksheets[0]
 
-            ws[const.identifier_cell].value=identifier
+            ws[const.identifier_cell]=identifier
+            ws[const.firstname_cell]=row["firstname"]
+            ws[const.lastname_cell]=row["lastname"]
+            ws[const.matriculation_cell]=row["matriculation_number"]
+
 
             wb.save(file_path)
 

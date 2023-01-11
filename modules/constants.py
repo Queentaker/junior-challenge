@@ -1,2 +1,5 @@
 identifier_cell= "R2"
+firstname_cell="B5"
+lastname_cell="B8"
+matriculation_cell="B11"
 template_path= "template.xlsx"
