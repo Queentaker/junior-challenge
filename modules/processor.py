@@ -8,9 +8,9 @@ import modules.constants as const
 from modules.identifier import generate_identifier
 
 
-def run(file_name:str):
+def run(file_name: str):
 
-    def create_excels(csv:str, target_folder:str):
+    def create_excels(csv: str, target_folder: str):
         assert os.path.exists(target_folder)
         df=pd.read_csv(csv)
         for index,row in df.iterrows():
@@ -34,7 +34,7 @@ def run(file_name:str):
         folder_name = "Folder_Excelfiles_" + datetime.now().now().strftime("%Y-%m-%d_%H_%M_%S")
         return folder_name
 
-    def create_folder(folder_name:str):
+    def create_folder(folder_name: str):
         assert not os.path.exists(folder_name)
         os.makedirs(folder_name, exist_ok=True)
 
